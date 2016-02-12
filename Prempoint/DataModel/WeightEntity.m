@@ -14,7 +14,8 @@
 @implementation WeightEntity
 
 // Insert code here to add functionality to your managed object subclass
-+ (WeightEntity*)createWeightEntityObject {
++ (WeightEntity*)createWeightEntityObject
+{
     AppDelegate *appDelegate = [AppDelegate getDelegate];
     NSEntityDescription *entity = [NSEntityDescription entityForName:EntityName inManagedObjectContext:appDelegate.managedObjectContext];
     WeightEntity *object = [[WeightEntity alloc] initWithEntity:entity insertIntoManagedObjectContext:appDelegate.managedObjectContext];
@@ -22,14 +23,15 @@
     return object;
 }
 
-+ (NSArray*)loadWeightObjects:(NSDate*)dateFrom to:(NSDate*)dateTo {
-    
++ (NSArray*)loadWeightObjects:(NSDate*)dateFrom to:(NSDate*)dateTo
+{
     AppDelegate *appDelegate = [AppDelegate getDelegate];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:EntityName inManagedObjectContext:appDelegate.managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    if (dateFrom && dateTo) {
+    if (dateFrom && dateTo)
+    {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(date > %@) AND (date <= %@)", dateFrom, dateTo];
         [fetchRequest setPredicate:predicate];
     }
@@ -43,15 +45,18 @@
     return fetchedObjects;
 }
 
-- (void)saveObject {
+- (void)saveObject
+{
     NSError *error;
     [self.managedObjectContext save:&error];
-    if (error)  {
+    if (error)
+    {
         NSLog(@"%@", [error localizedDescription]);
     }
 }
 
-- (void)deleteObject {
+- (void)deleteObject
+{
     AppDelegate *appDelegate = [AppDelegate getDelegate];
     [appDelegate.managedObjectContext deleteObject:self];
     [appDelegate.managedObjectContext save:nil];
